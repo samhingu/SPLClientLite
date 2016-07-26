@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
+import { RouteTransition } from 'react-router-transition'
+
+import { Link } from "react-router"
 
 import configureStore from '../store'
 import Notification from './notification'
@@ -17,8 +20,17 @@ class App extends Component {
           <div className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <h2>Welcome to SPL Client Lite</h2>
+            <Link to="/Home">Home</Link>
+            <Link to="/About">About</Link>
           </div>
-          {this.props.children}
+           <RouteTransition
+    pathname={this.props.location.pathname}
+    atEnter={{ opacity: 0 }}
+    atLeave={{ opacity: 0 }}
+    atActive={{ opacity: 1 }}
+  >
+    {this.props.children}
+  </RouteTransition>
            <Notification />
         </div>
       </Provider>
