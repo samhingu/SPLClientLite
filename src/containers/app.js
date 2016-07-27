@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import { RouteTransition } from 'react-router-transition'
 
-import { Link } from "react-router"
-
 import configureStore from '../store'
 import Notification from './notification'
 
-import logo from '../logo.png'
+import Header from '../components/_header'
+
 import './app.css';
 
 const store = configureStore()
@@ -17,20 +16,22 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className="App">
-          <div className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h2>Welcome to SPL Client Lite</h2>
-            <Link to="/Home">Home</Link>
-            <Link to="/About">About</Link>
-          </div>
-           <RouteTransition
-    pathname={this.props.location.pathname}
-    atEnter={{ opacity: 0 }}
-    atLeave={{ opacity: 0 }}
-    atActive={{ opacity: 1 }}
-  >
+          <Header />
+          <RouteTransition
+  pathname={this.props.location.pathname}
+  atEnter={{ opacity: 0 }}
+  atLeave={{ opacity: 0 }}
+  atActive={{ opacity: 1 }}
+  mapStyles={(styles) => {
+    return {
+      position: (styles.opacity === 1) ? undefined: 'absolute',
+      width: (styles.opacity === 1) ? undefined : '100%',
+      //height: (styles.opacity === 1) ? undefined : '100%',
+      opacity: styles.opacity,
+    }
+  }}>
     {this.props.children}
-  </RouteTransition>
+</RouteTransition>
            <Notification />
         </div>
       </Provider>

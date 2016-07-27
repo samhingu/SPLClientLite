@@ -1,0 +1,20 @@
+{
+  "name": "splclientlite",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Sumit Hingu <sphingu@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/samhingu/SPLClientLite",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "spectre.css": "^0.1.23"
+  }
+}
