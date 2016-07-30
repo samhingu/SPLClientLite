@@ -30,7 +30,9 @@ class App extends Component {
       opacity: styles.opacity,
     }
   }}>
+  <div className="mt-10">
     {this.props.children}
+  </div>
 </RouteTransition>
            <Notification />
         </div>

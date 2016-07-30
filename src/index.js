@@ -4,7 +4,6 @@ import { Router, Route, IndexRoute, hashHistory } from "react-router"
 
 import App from './containers/app'
 import Links from './containers/links'
-import About from './components/about'
 import Home from './components/home'
 
 import './index.css'
