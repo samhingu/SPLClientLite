@@ -4,7 +4,7 @@ import { Router, Route, IndexRoute, browserHistory } from "react-router"
 
 import App from './containers/app'
 import Links from './containers/links'
-import Home from './components/home'
+import Home from './components/addLink'
 
 import './index.css'
 

@@ -6,7 +6,7 @@ import configureStore from '../store'
 
 import { Notifs } from 'redux-notifications'
 
-import Header from '../components/_header'
+import Header from '../components/header'
 
 const store = configureStore()
 
