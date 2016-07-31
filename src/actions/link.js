@@ -3,8 +3,7 @@ import { sendError, sendSuccess } from "../helpers/notification"
 
 
 import * as ActionTypes from "../constants/ActionTypes"
-import { apiGetLinks, apiDeleteLink } from "../apis/fetch"
-
+import { apiGetLinks, apiDeleteLink, apiAddLink } from "../apis/fetch"
 
 const getLinksRequest = createAction(ActionTypes.GET_LINKS_REQUEST)
 const getLinksError = createAction(ActionTypes.GET_LINKS_ERROR)
@@ -41,12 +40,29 @@ const deleteLink = (linkId) => (dispatch) => {
 
 }
 
-const deleteLinkConfirm = createAction(ActionTypes.DELETE_LINK_CONFIRM)
-const deleteLinkCancel = createAction(ActionTypes.DELETE_LINK_CANCEL)
+
+const addLinkRequest = createAction(ActionTypes.ADD_LINK_REQUEST)
+const addLinkError = createAction(ActionTypes.ADD_LINK_ERROR)
+const addLinkSuccess = createAction(ActionTypes.ADD_LINK_SUCCESS)
+
+const addLink = (link) => (dispatch) => {
+    dispatch(addLinkRequest())
+    apiAddLink(link,
+        () => {
+            dispatch(sendSuccess("Link added successfully"))
+            dispatch(addLinkSuccess())
+        },
+        (errorMessage) => {
+            dispatch(sendError("Add Link", errorMessage))
+            dispatch(addLinkError(errorMessage))
+        })
+
+}
+
+
 
 export {
 getLinks,
 deleteLink,
-deleteLinkCancel,
-deleteLinkConfirm
+addLink
 }

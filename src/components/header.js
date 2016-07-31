@@ -10,7 +10,7 @@ class Header extends Component {
                     <Link to="/" className="navbar-brand">SPL Lite</Link>
                 </section>
                 <section className="navbar-section">
-                    <Link to="/Home" className="btn btn-link">Home</Link>
+                    <Link to="/AddLink" className="btn btn-link">Add Link</Link>
                     <Link to="/About" className="btn btn-primary">About</Link>
                 </section>
             </header>

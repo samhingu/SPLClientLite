@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import RichTextEditor from 'react-rte';
+import RichTextEditor from 'react-rte'
 
 class AddLink extends Component {
     constructor(props, context) {
@@ -14,9 +14,13 @@ class AddLink extends Component {
         this.setState({ value })
     }
     handleSubmit() {
-        console.log(this.state.value.toString('html'))
+      this.props.onSubmit({
+        title: this.refs.title.value,
+        body: this.state.value.toString('html')
+      })
     }
     render() {
+      var btnClass = this.props.isAdding ? "btn btn-primary loading" : "btn btn-primary"
         return (
             <div>
                 <form className="form-horizontal">
@@ -41,7 +45,7 @@ class AddLink extends Component {
                     <div className="form-group">
                         <div className="col-sm-3"></div>
                         <div className="col-sm-9">
-                            <button onClick={this.handleSubmit.bind(this) } type="button" className="btn btn-primary">Submit</button>
+                            <button onClick={this.handleSubmit.bind(this) } type="button" className={btnClass}>Submit</button>
                             <button type="reset" className="btn btn-link">Cancel</button>
                         </div>
                     </div>
@@ -52,4 +56,4 @@ class AddLink extends Component {
     }
 }
 
-export default AddLink;
+export default AddLink

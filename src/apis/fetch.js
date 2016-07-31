@@ -12,7 +12,7 @@ const checkStatus = (response) => {
 const parseJSON = (response) => response.json()
 
 export const apiGetLinks = (success, error) => {
-    let fullUrl = API_URL + 'links';
+    let fullUrl = API_URL + 'links'
 
     fetch(fullUrl)
         .then(checkStatus)
@@ -22,11 +22,27 @@ export const apiGetLinks = (success, error) => {
 }
 
 export const apiDeleteLink = (linkId, success, error) => {
-    let fullUrl = API_URL + 'links/' + linkId;
+    let fullUrl = API_URL + 'links/' + linkId
 
-    fetch(fullUrl, { method: 'DELETE' })
+    fetch(fullUrl, {
+            method: 'DELETE'
+        })
         .then(checkStatus)
         .then(() => success())
         .catch(err => error(err.message))
 }
 
+export const apiAddLink = (data, success, error) => {
+    let fullUrl = API_URL + 'links'
+    fetch(fullUrl, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(checkStatus)
+        .then(() => success())
+        .catch(err => error(err.message))
+}
