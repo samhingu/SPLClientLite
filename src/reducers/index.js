@@ -1,12 +1,12 @@
 import { routeReducer as routing } from 'react-router-redux'
 import { combineReducers } from 'redux'
 
-import notification from './notification';
+import { reducer as notifs } from 'redux-notifications';
 import link from './link'
 
 export default combineReducers({
     routing,
-    notification,
+    notifs,
     link
 })
 

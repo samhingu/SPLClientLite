@@ -1,7 +1,6 @@
 import { GET_LINKS_REQUEST, GET_LINKS_ERROR, GET_LINKS_SUCCESS,
     ADD_LINK,
-    DELETE_LINK_REQUEST, DELETE_LINK_SUCCESS, DELETE_LINK_ERROR,
-    DELETE_LINK_CANCEL, DELETE_LINK_CONFIRM } from "../constants/ActionTypes"
+    DELETE_LINK_REQUEST, DELETE_LINK_SUCCESS, DELETE_LINK_ERROR} from "../constants/ActionTypes"
 
 
 const initialState = {
@@ -40,19 +39,6 @@ export default (state = initialState, action) => {
                 links: action.payload
             };
 
-        case DELETE_LINK_CANCEL:
-            return {
-                ...state,
-                isDeleting: false,
-                linkId: null
-            }
-        case DELETE_LINK_CONFIRM:
-            return {
-                ...state,
-                isDeleting: true,
-                linkId: action.payload
-            }
-
         case DELETE_LINK_REQUEST:
             return {
                 ...state,
@@ -61,20 +47,23 @@ export default (state = initialState, action) => {
             }
         case DELETE_LINK_ERROR:
             return {
-                isLoading: false,
-                errorMessage: action.payload,
-                links: state.links
+                ...state,
+                isDeleting: false,
+                linkId: null,
+                errorMessage: action.payload
             };
         case DELETE_LINK_SUCCESS:
-            debugger;
             return {
-                isLoading: false,
+                ...state,
+                links: state.links.filter(link =>
+                    link._id !== state.linkId
+                ),
+                linkId: null,
+                isDeleting: false,
                 errorMessage: '',
-                links: action.payload
             };
 
         default:
             return state;
-
     }
 }

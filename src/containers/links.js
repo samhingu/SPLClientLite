@@ -1,3 +1,4 @@
+
 import React, {Component} from 'react'
 import { connect } from "react-redux"
 
@@ -5,13 +6,13 @@ import * as LinkActions from "../actions/link"
 
 class Links extends Component {
     componentDidMount() {
-        if (!this.props.link.links.length) {
+        if (!this.props.link.isLoading && !this.props.link.links.length) {
             this.props.getLinks();
         }
     }
-    prepareNoLinksMessage(){
+    prepareNoLinksMessage() {
         return (
-             <div className="empty">
+            <div className="empty mt-5">
                 <i className="icon icon-people"></i>
                 <p className="empty-title">You have no links</p>
                 <p className="empty-meta">Click the button to add new link.</p>
@@ -32,7 +33,10 @@ class Links extends Component {
                         <div className="column col-xs-9">{link.title}</div>
                         <div className="column col-xs-2">{link.body}</div>
                         <div className="column col-xs-1">
-                            <button onClick={() => this.props.deleteLink(link._id) }>Delete</button>
+                            <button onClick={() => this.props.deleteLink(link._id) }
+                                className={this.props.link.linkId === link._id ? "btn loading disabled" : "btn btn-primary btn-block"}>
+                                {this.props.link.linkId === link._id ? "Deleting" : "Delete"}
+                            </button>
                         </div>
                     </div>
                 ) }
@@ -45,22 +49,17 @@ class Links extends Component {
         return (
             <section className="section">
                 <button className={btnClass} onClick={() => this.props.getLinks() }>Refresh</button>
-                {this.props.link.links.length &&  this.prepareLinkListing() }
-                 {!this.props.link.links.length && this.prepareNoLinksMessage()}
+                {!!this.props.link.links.length && this.prepareLinkListing() }
+                {!this.props.link.links.length && this.prepareNoLinksMessage() }
             </section>
         );
     }
 }
-
-const mapStateToProps = (state) => {
-    return {
-        link: state.link
-    }
-}
+const mapStateToProps = ({link}) => ({ link })
 const mapDispatchToProps = (dispatch) => {
     return {
-        getLinks: () => { return dispatch(LinkActions.getLinks()) },
-        deleteLink: (linkId) => { return dispatch(LinkActions.deleteLink(linkId)) },
+        getLinks() { dispatch(LinkActions.getLinks()) },
+        deleteLink(linkId) { dispatch(LinkActions.deleteLink(linkId)) }
     }
 }
 

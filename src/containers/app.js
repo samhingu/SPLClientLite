@@ -3,11 +3,10 @@ import { Provider } from 'react-redux'
 import { RouteTransition } from 'react-router-transition'
 
 import configureStore from '../store'
-import Notification from './notification'
+
+import { Notifs } from 'redux-notifications'
 
 import Header from '../components/_header'
-
-import './app.css';
 
 const store = configureStore()
 
@@ -18,23 +17,23 @@ class App extends Component {
         <div className="App">
           <Header />
           <RouteTransition
-  pathname={this.props.location.pathname}
-  atEnter={{ opacity: 0 }}
-  atLeave={{ opacity: 0 }}
-  atActive={{ opacity: 1 }}
-  mapStyles={(styles) => {
-    return {
-      position: (styles.opacity === 1) ? undefined: 'absolute',
-      width: (styles.opacity === 1) ? undefined : '100%',
-      //height: (styles.opacity === 1) ? undefined : '100%',
-      opacity: styles.opacity,
-    }
-  }}>
-  <div className="mt-10">
-    {this.props.children}
-  </div>
-</RouteTransition>
-           <Notification />
+            pathname={this.props.location.pathname}
+            atEnter={{ opacity: 0 }}
+            atLeave={{ opacity: 0 }}
+            atActive={{ opacity: 1 }}
+            mapStyles={(styles) => {
+              return {
+                position: (styles.opacity === 1) ? undefined : 'absolute',
+                width: (styles.opacity === 1) ? undefined : '100%',
+                //height: (styles.opacity === 1) ? undefined : '100%',
+                opacity: styles.opacity,
+              }
+            } }>
+            <div className="mt-10">
+              {this.props.children}
+            </div>
+          </RouteTransition>
+          <Notifs />
         </div>
       </Provider>
     );

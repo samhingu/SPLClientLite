@@ -1,4 +1,6 @@
 import { createAction } from "redux-actions"
+import { sendError, sendSuccess } from "../helpers/notification"
+
 
 import * as ActionTypes from "../constants/ActionTypes"
 import { apiGetLinks, apiDeleteLink } from "../apis/fetch"
@@ -6,32 +8,44 @@ import { apiGetLinks, apiDeleteLink } from "../apis/fetch"
 
 const getLinksRequest = createAction(ActionTypes.GET_LINKS_REQUEST)
 const getLinksError = createAction(ActionTypes.GET_LINKS_ERROR)
-const getLinksSuccss = createAction(ActionTypes.GET_LINKS_SUCCESS)
+const getLinksSuccess = createAction(ActionTypes.GET_LINKS_SUCCESS)
 
 const getLinks = () => (dispatch) => {
     dispatch(getLinksRequest())
-    apiGetLinks((links) => dispatch(getLinksSuccss(links)),
-        (errMsg) => dispatch(getLinksError(errMsg)))
+    apiGetLinks(
+        (links) => {
+            dispatch(sendSuccess(links.length ? "Links loaded successfully" : "No links found"))
+            dispatch(getLinksSuccess(links))
+        },
+        (errorMessage) => {
+            dispatch(sendError("Load Links", errorMessage))
+            dispatch(getLinksError(errorMessage))
+        })
 }
 
 const deleteLinkRequest = createAction(ActionTypes.DELETE_LINK_REQUEST)
 const deleteLinkError = createAction(ActionTypes.DELETE_LINK_ERROR)
-const deleteLinkSuccss = createAction(ActionTypes.DELETE_LINK_SUCCESS)
+const deleteLinkSuccess = createAction(ActionTypes.DELETE_LINK_SUCCESS)
 
 const deleteLink = (linkId) => (dispatch) => {
     dispatch(deleteLinkRequest(linkId))
-    apiDeleteLink(linkId, (links) => dispatch(deleteLinkSuccss(links)),
-        (errMsg) => dispatch(deleteLinkError(errMsg)))
+    apiDeleteLink(linkId,
+        () => {
+            dispatch(sendSuccess("Link deleted successfully"))
+            dispatch(deleteLinkSuccess())
+        },
+        (errorMessage) => {
+            dispatch(sendError("Delete Link", errorMessage))
+            dispatch(deleteLinkError(errorMessage))
+        })
+
 }
 
 const deleteLinkConfirm = createAction(ActionTypes.DELETE_LINK_CONFIRM)
 const deleteLinkCancel = createAction(ActionTypes.DELETE_LINK_CANCEL)
 
-const createLink = createAction(ActionTypes.ADD_LINK)
-
 export {
 getLinks,
-createLink,
 deleteLink,
 deleteLinkCancel,
 deleteLinkConfirm
