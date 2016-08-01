@@ -5,13 +5,13 @@ import * as LinkActions from "../actions/link"
 import Links from '../components/links'
 
 class LinksComponent extends Component {
-    componentDidMount() {
+    componentDidMount(){
         if (!this.props.isLoading && !this.props.links.length) {
             this.props.getLinks()
         }
     }
     render() {
-        return <Links {...this.props}/>
+      return  <Links {...this.props}/>
     }
 }
 

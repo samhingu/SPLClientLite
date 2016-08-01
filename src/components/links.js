@@ -11,6 +11,20 @@ class Links extends Component {
           </div>
         )
   }
+  prepareLink(link){
+    return (
+    <div className="columns" key={link._id}>
+        <div className="column col-xs-9">{link.title}</div>
+        <div className="column col-xs-2">{link.body}</div>
+        <div className="column col-xs-1">
+            <button onClick={() => this.props.deleteLink(link._id) }
+                className={this.props.delLinkId === link._id ? "btn loading disabled" : "btn btn-primary btn-block"}>
+                {this.props.delLinkId === link._id ? "Deleting" : "Delete"}
+            </button>
+        </div>
+    </div>
+  )
+  }
   prepareLinkListing() {
       return (
           <div className="container bg-gray mt-5">
@@ -19,18 +33,7 @@ class Links extends Component {
                   <div className="column col-xs-2 text-bold">Body</div>
                   <div className="column col-xs-1 text-bold">Action</div>
               </div>
-              {!this.props.isLoading && this.props.links.map((link) =>
-                  <div className="columns" key={link._id}>
-                      <div className="column col-xs-9">{link.title}</div>
-                      <div className="column col-xs-2">{link.body}</div>
-                      <div className="column col-xs-1">
-                          <button onClick={() => this.props.deleteLink(link._id) }
-                              className={this.props.delLinkId === link._id ? "btn loading disabled" : "btn btn-primary btn-block"}>
-                              {this.props.delLinkId === link._id ? "Deleting" : "Delete"}
-                          </button>
-                      </div>
-                  </div>
-              )}
+              {!this.props.isLoading && this.props.links.map(this.prepareLink.bind(this))}
               {this.props.isLoading && <div className="center loading"></div>}
           </div>
       )
