@@ -1,17 +1,7 @@
-@import "../bower_components/spectre.css/dist/spectre.css";
 @import "../node_modules/redux-notifications/css/styles.css";
 
 body {
-  background: lightsteelblue;
-}
-
-.bg-gray{
-   background-color: #efefef;
-    border-radius: 0.3rem;
-    padding: 1rem;
-}
-.bg-lightpink{
-    background-color:lightpink;
+  background: aliceblue;
 }
 
 .notif{
